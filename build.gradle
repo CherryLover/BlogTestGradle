@@ -4,3 +4,27 @@
  * This is a general purpose Gradle build.
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds/
  */
+println(" I'm first line in build.gradle ")
+
+task hello {
+    group('demo-run')
+    doLast {
+        println(" hello world")
+    }
+}
+
+task("tryRun", {
+    group("demo-run")
+    dependsOn("hello")
+    println(" you are in configuration")
+
+    doLast {
+        println("You run me! in Last")
+    }
+
+    doFirst {
+        println(" You run me in First")
+    }.doFirst {
+        println(" You run me in 2nd First")
+    }
+})
