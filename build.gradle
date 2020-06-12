@@ -13,7 +13,7 @@ task hello {
     }
 }
 
-task("tryRun", {
+task "tryRun" {
     group("demo-run")
     dependsOn("hello")
     println(" you are in configuration")
@@ -27,4 +27,17 @@ task("tryRun", {
     }.doFirst {
         println(" You run me in 2nd First")
     }
-})
+}
+
+class GreetingPlugin implements Plugin<Project> {
+    void apply(Project project) {
+        project.task('helloPlugin') {
+            doLast {
+                println 'Hello from the GreetingPlugin'
+            }
+        }
+    }
+}
+
+
+apply plugin: GreetingPlugin
