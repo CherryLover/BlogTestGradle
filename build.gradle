@@ -29,10 +29,22 @@ task "tryRun" {
     }
 }
 
+class UserInfo {
+    String userName
+    String avatar
+    int age
+
+    String toString(){
+        return "userName：" + getUserName() + " avatar：" + getAvatar() + " age：" + getAge()
+    }
+}
+
 class GreetingPlugin implements Plugin<Project> {
     void apply(Project project) {
+        def userInfo = project.extensions.create("userInfo", UserInfo)
         project.task('helloPlugin') {
             doLast {
+                println userInfo.toString()
                 println 'Hello from the GreetingPlugin'
             }
         }
@@ -41,3 +53,10 @@ class GreetingPlugin implements Plugin<Project> {
 
 
 apply plugin: GreetingPlugin
+
+
+userInfo {
+    userName = 'little monster'
+    avatar = "no avatar"
+    age = 20
+}
